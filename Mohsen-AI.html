@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohsen AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #imageContainer {
+            margin-top: 20px;
+        }
+
+        #searchResult {
+            margin-top: 20px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #imageContainer {
+            margin-top: 20px;
+        }
+
+        #searchResult {
+            margin-top: 20px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mohsen AI</h1>
+        <input type="text" id="searchInput" placeholder="Enter your prompt">
+        <button id="searchButton">Generat</button>
+        <div id="imageContainer"></div>
+        <div id="searchResult"></div>
+    </div>
+
+    <script>
+        document.getElementById("searchButton").addEventListener("click", function() {
+            var searchTerm = document.getElementById("searchInput").value;
+
+            // Replace "YOUR_UNSPLASH_ACCESS_KEY" with your actual Unsplash Access Key
+            var accessKey = "Q05c-Q09xK9sjs8u0_C7FIBD7FNbQY5FvQor8unQXto";
+
+            fetch(`https://api.unsplash.com/photos/random?query=${searchTerm}&client_id=${accessKey}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.urls && data.urls.small) {
+                    var imageElement = document.createElement("img");
+                    imageElement.src = data.urls.small;
+                    imageElement.alt = searchTerm;
+                    document.getElementById("imageContainer").innerHTML = "";
+                    document.getElementById("imageContainer").appendChild(imageElement);
+
+                    document.getElementById("searchResult").innerText = `Showing photo related to: ${searchTerm}`;
+                } else {
+                    document.getElementById("searchResult").innerText = "No photos found.";
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
+</body>
+</html>
